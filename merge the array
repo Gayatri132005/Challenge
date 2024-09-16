@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+
+void printAll(int arr[], int n) {
+    for (int i = 0; i < n; i++) {  // Use < n instead of <= n to avoid out-of-bounds
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+void mergeArray(int arr1[], int m, int arr2[], int n) {
+    int i = m - 1;  // Last valid element in arr1
+    int j = n - 1;  // Last element in arr2
+    int k = m + n - 1;  // Last index in arr1 after merge
+
+    // Merge arr1 and arr2 from the end
+    while (i >= 0 && j >= 0) {
+        if (arr1[i] > arr2[j]) {
+            arr1[k] = arr1[i];
+            i--;
+        } else {
+            arr1[k] = arr2[j];
+            j--;
+        }
+        k--;
+    }
+
+    // Copy remaining elements of arr2 (if any)
+    while (j >= 0) {
+        arr1[k] = arr2[j];
+        j--;
+        k--;
+    }
+}
+
+int main() {
+    int arr1[6] = {1, 2, 3};  // Only the first 3 elements are valid, 3 spaces are empty for merging
+    int arr2[3] = {2, 4, 6};
+
+    int m = 3;  // Number of valid elements in arr1
+    int n = 3;  // Number of elements in arr2
+
+    mergeArray(arr1, m, arr2, n);
+
+    // Output the merged array
+    printAll(arr1, m + n);  // Print all m + n elements after merging
+
+    return 0;
+}
